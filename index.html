@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Srinivas Palivela — Construction Project Manager</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:#0D2137; --blue:#1A4B72; --steel:#2E7DAF; --sky:#5BA3CC;
+  --gold:#C8963E; --gold-lt:#F0C97A; --cream:#F7F3ED; --white:#FFFFFF;
+  --gray:#6B7A8D; --light:#EDF2F7; --mid:#3D5166; --dark:#1A2533;
+}
+html { scroll-behavior: smooth; }
+body { font-family:'DM Sans',sans-serif; background:var(--cream); color:var(--dark); overflow-x:hidden; }
+
+/* NAV */
+.topbar { position:fixed;top:0;left:0;right:0;z-index:200; background:rgba(13,33,55,.97); backdrop-filter:blur(20px); border-bottom:1px solid rgba(255,255,255,.07); height:58px; display:flex;align-items:center; padding:0 48px; gap:6px; }
+.topbar-logo { font-family:'Playfair Display',serif; font-size:20px;font-weight:700; color:var(--gold); margin-right:auto; letter-spacing:-.5px; }
+.tab-btn { background:none;border:none;cursor:pointer; color:rgba(255,255,255,.42); font-family:'DM Sans',sans-serif; font-size:12px;font-weight:600; letter-spacing:1.5px;text-transform:uppercase; padding:8px 16px;border-radius:40px; transition:all .25s; }
+.tab-btn:hover { color:rgba(255,255,255,.8); }
+.tab-btn.active { background:rgba(91,163,204,.18);color:var(--sky);border:1px solid rgba(91,163,204,.3); }
+
+/* PANELS */
+.panel { display:none;min-height:100vh;padding-top:58px; }
+.panel.active { display:block; }
+
+/* PAGE HERO (shared) */
+.page-hero { background:var(--navy);padding:72px 80px 60px;position:relative;overflow:hidden; }
+.page-hero-grid { position:absolute;inset:0; background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px); background-size:64px 64px; }
+.ph-tag { font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--sky);margin-bottom:12px;position:relative;z-index:1; }
+.ph-title { font-family:'Playfair Display',serif;font-size:clamp(36px,5vw,60px);font-weight:800;color:var(--white);line-height:1.05;position:relative;z-index:1; }
+.ph-title span { color:var(--gold); }
+.ph-sub { font-size:16px;color:rgba(255,255,255,.5);margin-top:14px;max-width:560px;line-height:1.7;position:relative;z-index:1; }
+
+/* FOOTER */
+.foot { background:#080F18;padding:30px 80px;display:flex;justify-content:space-between;align-items:center; }
+.foot-name { font-family:'Playfair Display',serif;font-size:18px;color:rgba(255,255,255,.32); }
+.foot-links { display:flex;gap:24px; }
+.foot-links a { color:rgba(255,255,255,.28);text-decoration:none;font-size:13px;transition:color .2s; }
+.foot-links a:hover { color:var(--sky); }
+
+@keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.8)} }
+
+/* ════════════════ HOME ════════════════ */
+.home-hero { min-height:100vh;background:var(--navy);position:relative;display:flex;align-items:center;overflow:hidden;padding:100px 80px 80px; }
+.hg { position:absolute;inset:0; background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:64px 64px; }
+.hglow { position:absolute;border-radius:50%;pointer-events:none; }
+.hglow-1 { width:700px;height:700px;background:radial-gradient(circle,rgba(91,163,204,.13) 0%,transparent 70%);top:-200px;right:-150px; }
+.hglow-2 { width:400px;height:400px;background:radial-gradient(circle,rgba(200,150,62,.09) 0%,transparent 70%);bottom:-80px;left:80px; }
+.home-content { position:relative;z-index:2;max-width:820px; }
+.avail-chip { display:inline-flex;align-items:center;gap:8px; background:rgba(91,163,204,.14);border:1px solid rgba(91,163,204,.28);color:var(--sky); font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;text-transform:uppercase; padding:7px 16px;border-radius:40px;margin-bottom:28px; animation:fadeUp .7s ease both; }
+.avail-chip::before { content:'';width:6px;height:6px;border-radius:50%;background:var(--sky);animation:pulse 2s infinite; }
+.home-name { font-family:'Playfair Display',serif;font-size:clamp(54px,7.5vw,104px);font-weight:900;color:var(--white);line-height:.95;letter-spacing:-3px;animation:fadeUp .7s .08s ease both; }
+.home-name span { color:var(--gold); }
+.home-role { font-size:18px;font-weight:300;color:rgba(255,255,255,.55);margin-top:22px;letter-spacing:.3px;animation:fadeUp .7s .16s ease both; }
+.home-role strong { color:var(--sky);font-weight:500; }
+.rule { width:56px;height:3px;background:linear-gradient(90deg,var(--gold),transparent);margin:28px 0;animation:fadeUp .7s .22s ease both; }
+.home-about { font-size:17px;font-weight:300;color:rgba(255,255,255,.65);line-height:1.8;max-width:640px;animation:fadeUp .7s .28s ease both; }
+.home-about em { color:var(--sky);font-style:normal;font-weight:500; }
+.highlights { display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:44px;animation:fadeUp .7s .36s ease both; }
+.hl-card { background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px 24px;transition:all .25s; }
+.hl-card:hover { background:rgba(91,163,204,.09);border-color:rgba(91,163,204,.2);transform:translateY(-3px); }
+.hl-icon { font-size:24px;margin-bottom:10px; }
+.hl-val { font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--gold);line-height:1; }
+.hl-label { font-size:12px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1.5px;margin-top:5px; }
+.home-stats { display:flex;gap:48px;margin-top:52px;padding-top:36px;border-top:1px solid rgba(255,255,255,.07);animation:fadeUp .7s .44s ease both; }
+.st-num { font-family:'Playfair Display',serif;font-size:38px;font-weight:700;color:var(--gold);line-height:1; }
+.st-lbl { font-size:11px;color:rgba(255,255,255,.38);text-transform:uppercase;letter-spacing:1.5px;margin-top:5px; }
+
+/* ════════════════ ABOUT ════════════════ */
+.content-wrap { max-width:1100px;margin:0 auto;padding:72px 80px; }
+.two-col { display:grid;grid-template-columns:1.4fr 1fr;gap:72px;align-items:start; }
+.story p { font-size:16px;line-height:1.9;color:var(--mid);margin-bottom:20px; }
+.story p strong { color:var(--navy);font-weight:600; }
+.pull-quote { font-family:'Playfair Display',serif;font-size:21px;font-style:italic;color:var(--blue);line-height:1.5;border-left:4px solid var(--gold);padding:4px 0 4px 24px;margin:32px 0; }
+.sidebar-stack { display:flex;flex-direction:column;gap:18px; }
+.s-card { background:var(--white);border-radius:18px;padding:26px 28px;border:1px solid rgba(0,0,0,.05);transition:transform .2s,box-shadow .2s; }
+.s-card:hover { transform:translateY(-4px);box-shadow:0 14px 40px rgba(26,75,114,.09); }
+.s-card-icon { font-size:26px;margin-bottom:10px; }
+.s-card h4 { font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--steel);margin-bottom:10px; }
+.s-card p { font-size:14px;color:var(--gray);line-height:1.65; }
+.s-card p strong { color:var(--navy); }
+.loc-badge { display:inline-flex;align-items:center;gap:6px;background:rgba(200,150,62,.1);border:1px solid rgba(200,150,62,.25);color:var(--gold);font-size:13px;font-weight:500;padding:8px 18px;border-radius:40px;margin-top:24px; }
+
+/* ════════════════ EXPERIENCE ════════════════ */
+.exp-wrap { max-width:900px;margin:0 auto;padding:72px 80px; }
+.timeline { position:relative;padding-left:36px; }
+.timeline::before { content:'';position:absolute;left:0;top:10px;bottom:0;width:2px;background:linear-gradient(to bottom,var(--gold),var(--steel),rgba(91,163,204,.1)); }
+.tl-item { position:relative;margin-bottom:68px;opacity:0;transform:translateX(-16px);transition:all .5s ease; }
+.tl-item.vis { opacity:1;transform:translateX(0); }
+.tl-dot { position:absolute;left:-43px;top:10px;width:16px;height:16px;border-radius:50%;background:var(--gold);border:3px solid var(--navy);box-shadow:0 0 0 4px rgba(200,150,62,.2); }
+.tl-date { font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--sky);text-transform:uppercase;margin-bottom:8px; }
+.tl-role { font-family:'Playfair Display',serif;font-size:27px;font-weight:700;color:var(--navy);line-height:1.15;margin-bottom:4px; }
+.tl-company { font-size:14px;color:var(--steel);font-weight:600;margin-bottom:14px; }
+.tl-promo { display:inline-block;background:rgba(200,150,62,.12);border:1px solid rgba(200,150,62,.28);color:var(--gold);font-size:11px;font-weight:600;padding:3px 12px;border-radius:20px;margin-bottom:14px;letter-spacing:.5px; }
+.tl-body { font-size:15px;color:var(--mid);line-height:1.85;margin-bottom:16px; }
+.tl-bullets { list-style:none;margin-bottom:18px; }
+.tl-bullets li { font-size:14px;color:var(--mid);line-height:1.7;padding:5px 0 5px 20px;position:relative; }
+.tl-bullets li::before { content:'–';position:absolute;left:0;color:var(--gold);font-weight:700; }
+.tl-achieve { display:inline-flex;align-items:flex-start;gap:8px;background:rgba(26,75,114,.06);border:1px solid rgba(26,75,114,.12);color:var(--blue);font-size:13px;padding:10px 16px;border-radius:10px;margin-top:4px;line-height:1.5; }
+.proj-tags { display:flex;flex-wrap:wrap;gap:8px;margin-top:18px; }
+.proj-tag { background:var(--light);border:1px solid rgba(46,125,175,.15);color:var(--steel);font-size:12px;font-weight:600;padding:5px 14px;border-radius:20px; }
+
+/* ════════════════ PROJECTS ════════════════ */
+.proj-wrap { max-width:1100px;margin:0 auto;padding:72px 80px; }
+.total-bar { background:var(--navy);border-radius:20px;padding:36px 48px;margin-bottom:40px;display:flex;align-items:center;gap:48px; }
+.total-num { font-family:'Playfair Display',serif;font-size:52px;font-weight:900;color:var(--gold);line-height:1; }
+.total-txt h3 { font-size:18px;font-weight:600;color:var(--white);margin-bottom:4px; }
+.total-txt p { font-size:14px;color:rgba(255,255,255,.45); }
+.proj-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:22px; }
+.p-card { background:var(--white);border-radius:20px;padding:36px 32px;border:1px solid rgba(0,0,0,.05);position:relative;overflow:hidden;transition:all .3s; }
+.p-card::after { content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--steel)); }
+.p-card:hover { transform:translateY(-7px);box-shadow:0 22px 60px rgba(26,75,114,.12); }
+.p-val { font-family:'Playfair Display',serif;font-size:40px;font-weight:700;color:var(--blue);line-height:1;margin-bottom:8px; }
+.p-name { font-size:16px;font-weight:700;color:var(--navy);margin-bottom:6px; }
+.p-type { font-size:12px;color:var(--gray);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:16px; }
+.p-desc { font-size:13px;color:var(--mid);line-height:1.7; }
+.p-role-badge { display:inline-block;margin-top:14px;background:var(--light);border:1px solid rgba(46,125,175,.15);color:var(--steel);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:4px 12px;border-radius:20px; }
+
+/* ════════════════ SKILLS ════════════════ */
+.sk-wrap { max-width:1100px;margin:0 auto;padding:72px 80px; }
+.sk-section-title { font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--navy);margin-bottom:8px; }
+.sk-section-sub { font-size:15px;color:var(--gray);margin-bottom:28px; }
+.sk-grid { display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:64px; }
+.sk-card { background:var(--white);border-radius:20px;padding:30px 26px;border:1px solid rgba(0,0,0,.05);position:relative;overflow:hidden;transition:all .3s; }
+.sk-card::before { content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--steel));transform:scaleX(0);transform-origin:left;transition:transform .3s; }
+.sk-card:hover { transform:translateY(-5px);box-shadow:0 18px 50px rgba(26,75,114,.1); }
+.sk-card:hover::before { transform:scaleX(1); }
+.sk-icon { font-size:32px;margin-bottom:14px; }
+.sk-card h4 { font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px; }
+.sk-card p { font-size:13px;color:var(--gray);line-height:1.65; }
+.sw-categories { display:grid;grid-template-columns:repeat(2,1fr);gap:20px; }
+.sw-cat { background:var(--white);border-radius:16px;padding:26px 28px;border:1px solid rgba(0,0,0,.05); }
+.sw-cat h5 { font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--steel);margin-bottom:14px; }
+.sw-pills { display:flex;flex-wrap:wrap;gap:8px; }
+.sw-pill { background:var(--light);border:1px solid rgba(0,0,0,.06);color:var(--mid);font-size:13px;font-weight:500;padding:7px 16px;border-radius:30px;transition:all .2s; }
+.sw-pill:hover { background:rgba(91,163,204,.12);border-color:rgba(91,163,204,.3);color:var(--steel); }
+.sw-pill.star { background:rgba(200,150,62,.1);border-color:rgba(200,150,62,.28);color:var(--gold); }
+.comp-grid { display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:40px; }
+.comp-item { display:flex;align-items:center;gap:12px;background:var(--white);border-radius:12px;padding:14px 20px;border:1px solid rgba(0,0,0,.05);font-size:14px;font-weight:500;color:var(--mid); }
+.comp-item::before { content:'✔';color:var(--gold);font-weight:800;flex-shrink:0; }
+
+/* ════════════════ CONTACT ════════════════ */
+.ct-hero { background:var(--navy);min-height:44vh;display:flex;align-items:center;padding:80px 80px 60px;position:relative;overflow:hidden; }
+.ct-hero-grid { position:absolute;inset:0; background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:64px 64px; }
+.ct-hero-content { position:relative;z-index:1; }
+.ct-hero h1 { font-family:'Playfair Display',serif;font-size:clamp(40px,5vw,72px);font-weight:800;color:var(--white);line-height:1.05;margin-bottom:14px; }
+.ct-hero h1 span { color:var(--gold); }
+.ct-hero p { font-size:17px;color:rgba(255,255,255,.5);max-width:500px;line-height:1.7; }
+.ct-wrap { max-width:1000px;margin:0 auto;padding:72px 80px; }
+.ct-grid { display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:40px; }
+.ct-card { background:var(--white);border-radius:20px;padding:32px;border:1px solid rgba(0,0,0,.05);display:flex;align-items:flex-start;gap:18px;transition:all .25s; }
+.ct-card:hover { transform:translateY(-4px);box-shadow:0 16px 48px rgba(26,75,114,.1); }
+.ct-icon { width:50px;height:50px;border-radius:14px;background:rgba(26,75,114,.07);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0; }
+.ct-card h4 { font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--steel);margin-bottom:6px; }
+.ct-card a,.ct-card .ct-val { font-size:16px;font-weight:600;color:var(--navy);text-decoration:none;line-height:1.4;display:block; }
+.ct-card a:hover { color:var(--steel); }
+.ct-card .ct-sub { font-size:13px;color:var(--gray);font-weight:400;margin-top:4px; }
+.open-to { background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:24px;padding:48px;color:var(--white);margin-bottom:32px; }
+.open-to h3 { font-family:'Playfair Display',serif;font-size:28px;font-weight:700;color:var(--white);margin-bottom:8px; }
+.open-to p { font-size:15px;color:rgba(255,255,255,.55);margin-bottom:20px; }
+.role-pills { display:flex;flex-wrap:wrap;gap:10px; }
+.role-pill { background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.85);font-size:14px;font-weight:500;padding:10px 22px;border-radius:40px; }
+.loc-pills { display:flex;flex-wrap:wrap;gap:10px;margin-top:20px; }
+.loc-pill { display:flex;align-items:center;gap:6px;background:rgba(200,150,62,.15);border:1px solid rgba(200,150,62,.3);color:var(--gold-lt);font-size:13px;font-weight:500;padding:8px 18px;border-radius:40px; }
+.avail-note { background:rgba(91,163,204,.08);border:1px solid rgba(91,163,204,.2);border-radius:14px;padding:20px 24px;display:flex;align-items:center;gap:14px;font-size:14px;color:var(--mid); }
+.avail-dot { width:10px;height:10px;border-radius:50%;background:var(--sky);flex-shrink:0;animation:pulse 2s infinite; }
+
+/* RESPONSIVE */
+@media(max-width:900px) {
+  .home-hero,.page-hero,.ct-hero,.content-wrap,.exp-wrap,.proj-wrap,.sk-wrap,.ct-wrap { padding-left:24px;padding-right:24px; }
+  .two-col,.ct-grid,.sw-categories,.comp-grid { grid-template-columns:1fr; }
+  .proj-grid,.sk-grid { grid-template-columns:1fr 1fr; }
+  .home-stats { gap:20px; }
+  .highlights { grid-template-columns:1fr; }
+  .topbar { padding:0 12px;gap:2px; }
+  .tab-btn { font-size:10px;padding:6px 8px;letter-spacing:.8px; }
+  .foot { flex-direction:column;gap:14px;text-align:center;padding:24px; }
+}
+@media(max-width:600px) {
+  .proj-grid,.sk-grid { grid-template-columns:1fr; }
+  .total-bar { flex-direction:column;gap:16px;padding:28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="topbar">
+  <div class="topbar-logo">SP</div>
+  <button class="tab-btn active" onclick="showTab(this,'home')">Home</button>
+  <button class="tab-btn" onclick="showTab(this,'about')">About</button>
+  <button class="tab-btn" onclick="showTab(this,'experience')">Experience</button>
+  <button class="tab-btn" onclick="showTab(this,'projects')">Projects</button>
+  <button class="tab-btn" onclick="showTab(this,'skills')">Skills</button>
+  <button class="tab-btn" onclick="showTab(this,'contact')">Contact</button>
+</nav>
+
+<!-- ══ HOME ══════════════════════════════════════════════ -->
+<div id="panel-home" class="panel active">
+  <section class="home-hero">
+    <div class="hg"></div>
+    <div class="hglow hglow-1"></div>
+    <div class="hglow hglow-2"></div>
+    <div class="home-content">
+      <div class="avail-chip">Available for new opportunities</div>
+      <h1 class="home-name">Srinivas<br><span>Palivela</span></h1>
+      <p class="home-role">
+        <strong>Assistant Project Manager</strong> &nbsp;·&nbsp;
+        <strong>Project Coordinator</strong> &nbsp;·&nbsp;
+        Construction &amp; Fit-Out Specialist &nbsp;·&nbsp; Brisbane &amp; SEQ
+      </p>
+      <div class="rule"></div>
+      <p class="home-about">
+        I coordinate complex construction and fit-out projects across Queensland —
+        managing everything from <em>factory scheduling</em> and <em>capacity planning</em>
+        to <em>site delivery logistics</em> and <em>client sign-off</em>.
+        Backed by a <em>Master of Architecture from UQ</em> and 4+ years of
+        Tier 1 &amp; Tier 2 delivery experience, I'm the person who keeps
+        projects moving when things get complicated.
+      </p>
+      <div class="highlights">
+        <div class="hl-card">
+          <div class="hl-icon">🏗️</div>
+          <div class="hl-val">$18M+</div>
+          <div class="hl-label">Total project portfolio coordinated</div>
+        </div>
+        <div class="hl-card">
+          <div class="hl-icon">📋</div>
+          <div class="hl-val">T1 &amp; T2</div>
+          <div class="hl-label">Government &amp; commercial project tiers</div>
+        </div>
+        <div class="hl-card">
+          <div class="hl-icon">🎓</div>
+          <div class="hl-val">MArch</div>
+          <div class="hl-label">Master of Architecture — UQ Brisbane</div>
+        </div>
+        <div class="hl-card">
+          <div class="hl-icon">👷</div>
+          <div class="hl-val">15+</div>
+          <div class="hl-label">Assemblers &amp; installers directly supervised</div>
+        </div>
+      </div>
+      <div class="home-stats">
+        <div><div class="st-num">4+</div><div class="st-lbl">Years Experience</div></div>
+        <div><div class="st-num">6+</div><div class="st-lbl">Major Projects</div></div>
+        <div><div class="st-num">QLD</div><div class="st-lbl">Based &amp; Available</div></div>
+        <div><div class="st-num">2020</div><div class="st-lbl">UQ Graduate</div></div>
+      </div>
+    </div>
+  </section>
+  <footer class="foot">
+    <div class="foot-name">Srinivas Palivela</div>
+    <div class="foot-links">
+      <a href="mailto:ar.srinivasp@gmail.com">ar.srinivasp@gmail.com</a>
+      <a href="tel:0426928276">0426 928 276</a>
+      <a href="https://linkedin.com/in/srinivas-palivela-03716a77" target="_blank">LinkedIn</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══ ABOUT ══════════════════════════════════════════════ -->
+<div id="panel-about" class="panel">
+  <div class="page-hero">
+    <div class="page-hero-grid"></div>
+    <div class="ph-tag">Who I Am</div>
+    <h2 class="ph-title">From drawing board<br><span>to construction site.</span></h2>
+    <p class="ph-sub">A construction professional who combines architectural design literacy with hands-on Tier 1 &amp; Tier 2 project delivery — built across 4+ years of fit-out and construction work in Queensland.</p>
+  </div>
+  <div class="content-wrap">
+    <div class="two-col">
+      <div class="story">
+        <p>I didn't start my career on a construction site — I started it behind a drawing board. After completing my <strong>Master of Architecture at the University of Queensland</strong>, I made a deliberate decision to step into construction project management, because I wanted to see things get built, not just designed.</p>
+        <p>That decision led to 4+ years of hands-on experience delivering <strong>Tier 1 and Tier 2 construction and fit-out projects</strong> across Queensland — from government correctional facilities and youth remand centres to airport kiosks, stadium fit-outs, and childcare centres.</p>
+        <blockquote class="pull-quote">"I'm the person clients call when something goes sideways — and I've never missed a deadline because of it."</blockquote>
+        <p>At <strong>Ingrams Australia</strong>, I progressed from Assistant Project Manager to Project Manager in 18 months — taking on full end-to-end accountability for project delivery. Day to day, I build <strong>weekly factory capacity plans</strong>, sequence deliveries to match site readiness, run QA/QC inspections, manage progress claims and variations, and keep all documentation airtight in <strong>Aconex and Omtrak</strong>.</p>
+        <p>I also prepare <strong>fit-out estimations using Bluebeam and Microvellum</strong> — working through quantity take-offs, labour rates, material pricing, and subcontractor quotes to support tendering and pre-construction planning. I've directly supervised on-site teams of up to <strong>5 assemblers and 10 installers</strong>, managing daily workflows and maintaining safety and quality standards throughout.</p>
+        <p>My architecture background isn't just a qualification — it's a genuine advantage on site. I can read drawings, flag constructability issues before they become expensive problems, and bridge the gap between design intent and on-site delivery. Teams and clients I've worked with have consistently valued this combination.</p>
+        <p>One moment that stands out: on the <strong>Lady Ramsay Child Care Centre</strong>, last-minute design variations threatened to blow our completion date. I sourced alternative products, worked creatively with available materials, and we still hit the deadline. The client noticed — and came back.</p>
+        <div class="loc-badge">📍 Brisbane · Gold Coast · Sunshine Coast · Ipswich · Toowoomba</div>
+      </div>
+      <div class="sidebar-stack">
+        <div class="s-card">
+          <div class="s-card-icon">🎓</div>
+          <h4>Education</h4>
+          <p><strong>Master of Architecture (MArch)</strong><br>University of Queensland · 2018–2020 · AQF Level 9<br>Project Management, Contract Law, Procurement &amp; Tendering</p>
+          <p style="margin-top:12px"><strong>Bachelor of Architecture (BArch)</strong><br>University of Mumbai · 2012–2017 · High Honours<br>Design, Construction Technology, Structural Systems</p>
+        </div>
+        <div class="s-card">
+          <div class="s-card-icon">📋</div>
+          <h4>Certifications &amp; Licences</h4>
+          <p>✅ White Card — CPCWHS1001 (2024)<br>✅ Architect Licence — India (CA/2018/91573)<br>✅ TERI Sustainable Design Programme (2016)<br>✅ AI in Project Management<br>✅ Generative AI for Project Managers</p>
+        </div>
+        <div class="s-card">
+          <div class="s-card-icon">🧭</div>
+          <h4>What I'm Looking For</h4>
+          <p>Assistant Project Manager or Project Coordinator roles in <strong>construction and fit-out</strong> — government, commercial, or client-side environments across South East Queensland.</p>
+        </div>
+        <div class="s-card">
+          <div class="s-card-icon">🤝</div>
+          <h4>How I Work</h4>
+          <p>I'm a communicator first. Keeping clients, consultants, and contractors aligned is as important to me as the technical delivery. I believe the best outcomes come from people who are informed, respected, and heard.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="foot">
+    <div class="foot-name">Srinivas Palivela</div>
+    <div class="foot-links">
+      <a href="mailto:ar.srinivasp@gmail.com">ar.srinivasp@gmail.com</a>
+      <a href="tel:0426928276">0426 928 276</a>
+      <a href="https://linkedin.com/in/srinivas-palivela-03716a77" target="_blank">LinkedIn</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══ EXPERIENCE ══════════════════════════════════════════ -->
+<div id="panel-experience" class="panel">
+  <div class="page-hero">
+    <div class="page-hero-grid"></div>
+    <div class="ph-tag">Career Journey</div>
+    <h2 class="ph-title">Experience</h2>
+    <p class="ph-sub">Contractor-side delivery on behalf of government and commercial clients across Queensland — progressing from graduate to Project Manager in four years.</p>
+  </div>
+  <div class="exp-wrap">
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">May 2024 — Present</div>
+        <div class="tl-role">Project Manager</div>
+        <div class="tl-promo">⬆ Promoted from APM after 18 months</div>
+        <div class="tl-company">Ingrams Australia Pty Ltd &nbsp;·&nbsp; Beenleigh, QLD</div>
+        <p class="tl-body">Promoted to full PM responsibility after demonstrating consistent delivery, client management, and coordination capability as APM. I now hold end-to-end accountability across our construction and fit-out portfolio — managing factory scheduling, delivery logistics, client communications, progress claims, QA/QC, and handover documentation across all active projects simultaneously.</p>
+        <ul class="tl-bullets">
+          <li>Developed and managed <strong>weekly factory capacity plans</strong> — allocating labour and machine time across concurrent projects to maintain production targets and prevent bottlenecks</li>
+          <li>Organised all <strong>site deliveries</strong> — scheduling transport logistics, sequencing runs to align with site readiness, liaising with site supervisors to protect critical path items</li>
+          <li>Prepared <strong>fit-out estimations</strong> using Bluebeam and Microvellum — quantity take-offs, labour rates, material pricing, and subcontractor quotes for tendering and pre-construction cost planning</li>
+          <li>Managed <strong>end-to-end progress claims, variation approvals</strong>, and financial reporting to ensure timely resolution</li>
+          <li>Administered all project documentation via <strong>Aconex and Omtrak</strong> — O&amp;M manuals, warranties, Form 12, SDS, and defect registers</li>
+          <li>Directly supervised on-site teams of up to <strong>5 assemblers and 10 installers</strong> — coordinating daily workflows and maintaining safety and quality standards</li>
+          <li>Developed and maintained <strong>SWMS, Quality Plans, and Health Plans</strong> in full WHS compliance</li>
+          <li>Implemented <strong>Green Star certification</strong> documentation and streamlined factory programs for the NPAV project</li>
+        </ul>
+        <div class="tl-achieve">⭐&nbsp; Praised by client for fast-tracking last-minute variations on Lady Ramsay Child Care Centre — sourced alternative products and delivered on time without missing the deadline</div>
+        <div class="proj-tags">
+          <span class="proj-tag">Lady Ramsay Child Care Centre — $700K</span>
+          <span class="proj-tag">Wacol Youth Remand Centre — $850K</span>
+          <span class="proj-tag">NPAV Project — $2.3M</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-date">Nov 2022 — May 2024</div>
+        <div class="tl-role">Assistant Project Manager</div>
+        <div class="tl-company">Ingrams Australia Pty Ltd &nbsp;·&nbsp; Ipswich, QLD</div>
+        <p class="tl-body">Supported senior PMs across high-compliance, complex construction and fit-out projects. The Southern Queensland Correctional Centre Stage 2 (~$15–18M) was one of the most demanding environments I've worked in — every document, delivery, and inspection had to be exactly right. After 18 months I was nominated for and promoted to Project Manager.</p>
+        <ul class="tl-bullets">
+          <li>Assisted in developing <strong>weekly factory work schedules and capacity plans</strong> — coordinating production priorities across concurrent projects to meet delivery deadlines</li>
+          <li>Coordinated <strong>procurement and delivery processes</strong> — scheduling transport runs, sequencing deliveries to match site readiness, and managing supplier lead times against critical path milestones</li>
+          <li>Conducted <strong>QA/QC site and factory inspections</strong>; managed O&amp;M manuals and project handover documentation</li>
+          <li>Prepared and submitted all <strong>preconstruction safety documentation</strong>: SWMS, SDS, quality plans, and health plans</li>
+          <li>Managed <strong>drawing revisions and drafter coordination</strong>; uploaded documentation and managed RFIs via Aconex</li>
+          <li>Administered <strong>progress claims, variations, and defect rectification</strong> using Omtrak</li>
+          <li>Supported <strong>client and consultant communications</strong> — meeting minutes, RFI tracking, and action item follow-up</li>
+        </ul>
+        <div class="tl-achieve">🏆&nbsp; Nominated for and promoted to Project Manager after 18 months — recognised for initiative, reliability, and consistent delivery</div>
+        <div class="proj-tags">
+          <span class="proj-tag">SQCC Stage 2 — ~$15–18M</span>
+          <span class="proj-tag">Fraser's Office Fit-Out</span>
+          <span class="proj-tag">Cbus Stadium Locker Room — $400K</span>
+          <span class="proj-tag">Brisbane Airport Kiosk — $150–245K</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--steel)"></div>
+        <div class="tl-date">Jun 2021 — Nov 2022</div>
+        <div class="tl-role">Project Coordinator / Graduate Architect</div>
+        <div class="tl-company">Octeros Cabinets &nbsp;·&nbsp; Bells Creek, QLD</div>
+        <p class="tl-body">My first construction role — where I learned how a factory truly operates. I sat between the design office and the factory floor, developing production programs, coordinating documents across concurrent projects, and producing detailed shop drawings for high-specification joinery. Understanding production sequencing and bottleneck management is knowledge I draw on every day.</p>
+        <ul class="tl-bullets">
+          <li>Developed <strong>factory production programs</strong> and managed documentation control</li>
+          <li>Produced <strong>detailed shop drawings</strong> for high-specification joinery to manufacturing tolerances</li>
+          <li>Managed <strong>project submissions and document coordination</strong> via Aconex</li>
+          <li>Optimised <strong>internal workflows</strong> across design, production, and delivery teams</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--steel)"></div>
+        <div class="tl-date">Jan 2021 — Jul 2021</div>
+        <div class="tl-role">Structural Draftsperson</div>
+        <div class="tl-company">CST Consulting Engineers &nbsp;·&nbsp; Brisbane CBD, QLD</div>
+        <p class="tl-body">Developed structural documentation for residential and commercial projects, working directly with engineers on code compliance. Managed council submission processes for development approvals — experience that informs how I approach compliance documentation today.</p>
+        <ul class="tl-bullets">
+          <li>Produced <strong>structural drawings</strong> for residential and commercial projects</li>
+          <li>Supported engineers on <strong>code compliance</strong> checks and documentation</li>
+          <li>Managed <strong>council submission processes</strong> for development approvals</li>
+        </ul>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot" style="background:var(--gray)"></div>
+        <div class="tl-date">May 2017 — Apr 2018</div>
+        <div class="tl-role">Architect — Licensed</div>
+        <div class="tl-company">Enviroscape — Landscape Architecture Firm &nbsp;·&nbsp; Mumbai, India</div>
+        <p class="tl-body">My first professional role after graduating — where I led a team of three across urban development and commercial landscape architecture projects, from design concept through to council approval drawings and as-built documentation. Contributed to the Smart City project in Hyderabad using QGIS. Built the design literacy and client communication skills that underpin everything I do today.</p>
+        <ul class="tl-bullets">
+          <li>Led a <strong>team of three</strong> across urban development and commercial landscape projects</li>
+          <li>Developed <strong>council approval drawings and as-built documentation</strong></li>
+          <li>Applied <strong>sustainable design practices</strong>, horticulture, and planting systems</li>
+          <li>Contributed to the <strong>Hyderabad Smart City project</strong> using QGIS for spatial planning</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+  <footer class="foot">
+    <div class="foot-name">Srinivas Palivela</div>
+    <div class="foot-links">
+      <a href="mailto:ar.srinivasp@gmail.com">ar.srinivasp@gmail.com</a>
+      <a href="tel:0426928276">0426 928 276</a>
+      <a href="https://linkedin.com/in/srinivas-palivela-03716a77" target="_blank">LinkedIn</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══ PROJECTS ══════════════════════════════════════════ -->
+<div id="panel-projects" class="panel">
+  <div class="page-hero">
+    <div class="page-hero-grid"></div>
+    <div class="ph-tag">Track Record</div>
+    <h2 class="ph-title">Key Projects</h2>
+    <p class="ph-sub">Projects I've led or coordinated — spanning government, commercial, aviation, and sports infrastructure sectors across Queensland.</p>
+  </div>
+  <div class="proj-wrap">
+    <div class="total-bar">
+      <div><div class="total-num">$18M+</div></div>
+      <div class="total-txt">
+        <h3>Total Project Portfolio Coordinated</h3>
+        <p>Across Tier 1 &amp; Tier 2 construction and fit-out — government, commercial, aviation, and sports infrastructure</p>
+      </div>
+    </div>
+    <div class="proj-grid">
+      <div class="p-card">
+        <div class="p-val">~$15–18M</div>
+        <div class="p-name">Southern Queensland Correctional Centre Stage 2</div>
+        <div class="p-type">Government · High-Security · Construction</div>
+        <p class="p-desc">One of the most compliance-intensive projects I've worked on. Supported the senior PM across procurement, scheduling, QA/QC inspections, and full handover documentation within a high-security government environment where every step had to be executed with precision.</p>
+        <span class="p-role-badge">APM Role</span>
+      </div>
+      <div class="p-card">
+        <div class="p-val">$2.3M</div>
+        <div class="p-name">NPAV Project</div>
+        <div class="p-type">Commercial · Joinery &amp; Fit-Out · Green Star</div>
+        <p class="p-desc">Full PM responsibility across a high-value joinery and fit-out package. Implemented Green Star certification documentation, developed streamlined factory production programs, and coordinated delivery and installation through to defect-free handover.</p>
+        <span class="p-role-badge">PM Role</span>
+      </div>
+      <div class="p-card">
+        <div class="p-val">$850K</div>
+        <div class="p-name">Wacol Youth Remand Centre</div>
+        <div class="p-type">Government · Compliance-Heavy · Fit-Out</div>
+        <p class="p-desc">Government correctional fit-out delivered under budget through strategic supplier negotiation and labour optimisation. Managed end-to-end factory scheduling, site delivery coordination, and full WHS and compliance documentation.</p>
+        <span class="p-role-badge">PM Role</span>
+      </div>
+      <div class="p-card">
+        <div class="p-val">$700K</div>
+        <div class="p-name">Lady Ramsay Child Care Centre</div>
+        <div class="p-type">Commercial · Client-Praised · Fast-Track Delivery</div>
+        <p class="p-desc">Fast-tracked delivery under full PM responsibility. When last-minute design variations threatened the completion date, I sourced alternative products and delivered on time without missing the deadline — earning direct client praise and generating repeat business.</p>
+        <span class="p-role-badge">PM Role</span>
+      </div>
+      <div class="p-card">
+        <div class="p-val">$400K</div>
+        <div class="p-name">Cbus Stadium Locker Room</div>
+        <div class="p-type">Sports Infrastructure · Fit-Out · Delivery Coordination</div>
+        <p class="p-desc">Coordinated factory production and site delivery for a high-profile sports venue fit-out. Managed tight delivery deadlines through precise factory and site scheduling, ensuring all items arrived sequenced to site readiness and installation windows.</p>
+        <span class="p-role-badge">APM Role</span>
+      </div>
+      <div class="p-card">
+        <div class="p-val">$150–245K</div>
+        <div class="p-name">Brisbane Airport Kiosk</div>
+        <div class="p-type">Aviation · Fast-Track · Procurement</div>
+        <p class="p-desc">Fast-tracked design approvals and reduced manufacturing lead times to meet strict airport operational constraints. Achieved material cost savings through strategic procurement within a highly regulated aviation environment.</p>
+        <span class="p-role-badge">APM → PM Role</span>
+      </div>
+    </div>
+    <div style="margin-top:36px;padding:28px 32px;background:var(--white);border-radius:16px;border:1px solid rgba(0,0,0,.05)">
+      <h4 style="font-size:14px;font-weight:700;color:var(--navy);margin-bottom:8px;">Earlier Project Experience</h4>
+      <p style="font-size:14px;color:var(--gray);line-height:1.7;">At <strong>Octeros Cabinets</strong> — factory production coordination and high-specification joinery shop drawings across multiple concurrent projects. At <strong>CST Consulting Engineers</strong> — structural documentation for residential and commercial projects. In India at <strong>Enviroscape</strong> — contributed to the Hyderabad Smart City project and delivered eight landscape architecture projects across residential, commercial, and institutional sectors.</p>
+    </div>
+  </div>
+  <footer class="foot">
+    <div class="foot-name">Srinivas Palivela</div>
+    <div class="foot-links">
+      <a href="mailto:ar.srinivasp@gmail.com">ar.srinivasp@gmail.com</a>
+      <a href="tel:0426928276">0426 928 276</a>
+      <a href="https://linkedin.com/in/srinivas-palivela-03716a77" target="_blank">LinkedIn</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══ SKILLS ════════════════════════════════════════════ -->
+<div id="panel-skills" class="panel">
+  <div class="page-hero">
+    <div class="page-hero-grid"></div>
+    <div class="ph-tag">Capabilities</div>
+    <h2 class="ph-title">Skills &amp; Tools</h2>
+    <p class="ph-sub">Built through real projects across four years — not classroom theory. Every skill listed here has been applied on site, in a factory, or in a client meeting.</p>
+  </div>
+  <div class="sk-wrap">
+    <div style="margin-bottom:16px">
+      <div class="sk-section-title">Core Competencies</div>
+      <div class="sk-section-sub">The capabilities I bring to every project from day one.</div>
+    </div>
+    <div class="sk-grid">
+      <div class="sk-card"><div class="sk-icon">🏭</div><h4>Factory Scheduling &amp; Capacity Planning</h4><p>Weekly production programs across concurrent projects — allocating labour and machine time, preventing bottlenecks, and sequencing manufacturing to meet site delivery windows.</p></div>
+      <div class="sk-card"><div class="sk-icon">🚚</div><h4>Delivery Coordination &amp; Logistics</h4><p>Transport scheduling, delivery sequencing aligned to site readiness, supplier lead time management — ensuring zero delays on critical path items.</p></div>
+      <div class="sk-card"><div class="sk-icon">💼</div><h4>Client &amp; Stakeholder Communication</h4><p>Primary client contact across all project stages — managing approvals, variations, expectations, RFI tracking, and relationships that generate repeat business.</p></div>
+      <div class="sk-card"><div class="sk-icon">📐</div><h4>Fit-Out Estimation</h4><p>Quantity take-offs, labour rates, material pricing, and subcontractor quotes using Bluebeam and Microvellum — supporting tendering and pre-construction cost planning.</p></div>
+      <div class="sk-card"><div class="sk-icon">✅</div><h4>Quality Assurance &amp; Compliance</h4><p>ITPs, ITCs, factory and site inspections, SWMS, WHS documentation, NCC/BCA compliance — across government correctional, commercial, and aviation environments.</p></div>
+      <div class="sk-card"><div class="sk-icon">📁</div><h4>Document Control &amp; Reporting</h4><p>Aconex, Omtrak, progress claims, variation management, O&amp;M manuals, Form 12, SDS, and defect registers — end-to-end project documentation.</p></div>
+      <div class="sk-card"><div class="sk-icon">👷</div><h4>Team Supervision</h4><p>Direct management of on-site teams — up to 5 assemblers and 10 installers — coordinating daily workflows, resolving issues, and maintaining safety standards.</p></div>
+      <div class="sk-card"><div class="sk-icon">🛒</div><h4>Procurement &amp; Supply Chain</h4><p>End-to-end procurement coordination, supplier negotiation, material sourcing, and alternative product identification under time pressure to protect the program.</p></div>
+      <div class="sk-card"><div class="sk-icon">🏗️</div><h4>Design &amp; Technical Literacy</h4><p>MArch-qualified — reads drawings, flags constructability issues early, and bridges design intent with on-site delivery. A rare combination in a PM or coordinator role.</p></div>
+    </div>
+
+    <div style="margin-top:64px;margin-bottom:20px">
+      <div class="sk-section-title">Software &amp; Tools</div>
+      <div class="sk-section-sub">★ Highlighted tools are used daily in my current role.</div>
+    </div>
+    <div class="sw-categories">
+      <div class="sw-cat"><h5>Document Control</h5><div class="sw-pills"><span class="sw-pill star">★ Aconex</span><span class="sw-pill star">★ Omtrak</span></div></div>
+      <div class="sw-cat"><h5>Estimation &amp; Design</h5><div class="sw-pills"><span class="sw-pill star">★ Bluebeam</span><span class="sw-pill star">★ Microvellum</span><span class="sw-pill">AutoCAD</span><span class="sw-pill">Revit</span><span class="sw-pill">SketchUp</span><span class="sw-pill">Rhino</span></div></div>
+      <div class="sw-cat"><h5>Project Planning</h5><div class="sw-pills"><span class="sw-pill">MS Project</span><span class="sw-pill">MS Visio</span></div></div>
+      <div class="sw-cat"><h5>Reporting &amp; Office</h5><div class="sw-pills"><span class="sw-pill">MS Excel</span><span class="sw-pill">MS PowerPoint</span><span class="sw-pill">MS Word</span></div></div>
+    </div>
+
+    <div style="margin-top:56px;margin-bottom:20px">
+      <div class="sk-section-title">Key Competencies</div>
+      <div class="sk-section-sub">What recruiters consistently look for — and what I consistently deliver.</div>
+    </div>
+    <div class="comp-grid">
+      <div class="comp-item">Factory Scheduling &amp; Capacity Planning</div>
+      <div class="comp-item">Delivery Coordination &amp; Logistics</div>
+      <div class="comp-item">Client &amp; Stakeholder Communication</div>
+      <div class="comp-item">RFI &amp; Variation Management</div>
+      <div class="comp-item">Procurement &amp; Supply Chain</div>
+      <div class="comp-item">Fit-Out Estimation &amp; Cost Planning</div>
+      <div class="comp-item">Quality Assurance (ITP / ITC)</div>
+      <div class="comp-item">Risk &amp; Compliance Management</div>
+      <div class="comp-item">Aconex &amp; Omtrak Document Control</div>
+      <div class="comp-item">SWMS, WHS &amp; Safety Documentation</div>
+      <div class="comp-item">Site Inspections &amp; Defect Tracking</div>
+      <div class="comp-item">Team Supervision &amp; Leadership</div>
+    </div>
+  </div>
+  <footer class="foot">
+    <div class="foot-name">Srinivas Palivela</div>
+    <div class="foot-links">
+      <a href="mailto:ar.srinivasp@gmail.com">ar.srinivasp@gmail.com</a>
+      <a href="tel:0426928276">0426 928 276</a>
+      <a href="https://linkedin.com/in/srinivas-palivela-03716a77" target="_blank">LinkedIn</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══ CONTACT ════════════════════════════════════════════ -->
+<div id="panel-contact" class="panel">
+  <div class="ct-hero">
+    <div class="ct-hero-grid"></div>
+    <div class="ct-hero-content">
+      <div class="ph-tag">Get In Touch</div>
+      <h1>Let's build something<br><span>great together.</span></h1>
+      <p>Open to Assistant Project Manager and Project Coordinator opportunities across Brisbane and South East Queensland. I respond within 24 hours.</p>
+    </div>
+  </div>
+  <div class="ct-wrap">
+    <div class="ct-grid">
+      <div class="ct-card">
+        <div class="ct-icon">📞</div>
+        <div>
+          <h4>Phone</h4>
+          <a href="tel:0426928276">0426 928 276</a>
+          <p class="ct-sub">Available Mon–Fri, 7am–6pm AEST</p>
+        </div>
+      </div>
+      <div class="ct-card">
+        <div class="ct-icon">📩</div>
+        <div>
+          <h4>Email</h4>
+          <a href="mailto:ar.srinivasp@gmail.com">ar.srinivasp@gmail.com</a>
+          <p class="ct-sub">Response within 24 hours</p>
+        </div>
+      </div>
+      <div class="ct-card">
+        <div class="ct-icon">💼</div>
+        <div>
+          <h4>LinkedIn</h4>
+          <a href="https://linkedin.com/in/srinivas-palivela-03716a77" target="_blank">srinivas-palivela-03716a77</a>
+          <p class="ct-sub">Connect directly on LinkedIn</p>
+        </div>
+      </div>
+      <div class="ct-card">
+        <div class="ct-icon">📍</div>
+        <div>
+          <h4>Based In</h4>
+          <div class="ct-val">Brisbane, QLD, Australia</div>
+          <p class="ct-sub">Open to work across South East Queensland</p>
+        </div>
+      </div>
+    </div>
+    <div class="open-to">
+      <h3>What I'm Looking For</h3>
+      <p>Roles I'm actively applying for and open to discussing:</p>
+      <div class="role-pills">
+        <span class="role-pill">Assistant Project Manager</span>
+        <span class="role-pill">Project Coordinator</span>
+        <span class="role-pill">Construction Coordinator</span>
+        <span class="role-pill">Fit-Out Project Coordinator</span>
+        <span class="role-pill">Site Coordinator</span>
+      </div>
+      <p style="margin-top:24px;margin-bottom:4px;">Locations I'm open to:</p>
+      <div class="loc-pills">
+        <span class="loc-pill">📍 Brisbane</span>
+        <span class="loc-pill">📍 Gold Coast</span>
+        <span class="loc-pill">📍 Sunshine Coast</span>
+        <span class="loc-pill">📍 Ipswich</span>
+        <span class="loc-pill">📍 Toowoomba</span>
+      </div>
+    </div>
+    <div class="avail-note">
+      <div class="avail-dot"></div>
+      <p><strong>Currently available</strong> — actively seeking new opportunities in construction project management and fit-out coordination. Happy to discuss full-time, part-time, or contract arrangements.</p>
+    </div>
+  </div>
+  <footer class="foot">
+    <div class="foot-name">Srinivas Palivela</div>
+    <div class="foot-links">
+      <a href="mailto:ar.srinivasp@gmail.com">ar.srinivasp@gmail.com</a>
+      <a href="tel:0426928276">0426 928 276</a>
+      <a href="https://linkedin.com/in/srinivas-palivela-03716a77" target="_blank">LinkedIn</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+function showTab(btn, name) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (name === 'experience') {
+    setTimeout(() => {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach((e, i) => {
+          if (e.isIntersecting) setTimeout(() => e.target.classList.add('vis'), i * 130);
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.tl-item').forEach(el => { el.classList.remove('vis'); obs.observe(el); });
+    }, 100);
+  }
+}
+window.addEventListener('load', () => {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) setTimeout(() => e.target.classList.add('vis'), i * 130);
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.tl-item').forEach(el => obs.observe(el));
+});
+</script>
+</body>
+</html>
